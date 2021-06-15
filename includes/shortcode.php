@@ -7,8 +7,10 @@ function custom_add_ons(){
 	$home_url = get_home_url();
 	ob_start();
 	$output =  '<ul class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0" id="add-on-custom">';
-  
-	$products = wc_get_products();
+  $args = array(
+    'stock_status' => 'instock',
+  );
+	$products = wc_get_products($args);
 	$current_user = wp_get_current_user();
 	$user_id = $current_user->ID;
   $productscount = 0;
@@ -45,8 +47,14 @@ function custom_add_ons(){
               '.$image[0].' 63w,
               '.$image[0].' 125w,
               '.$image[0].' 250w"
-              sizes="(max-width: 188px) 100vw, 188px">
-              <span class="tooltiptext">'.$product_short_description.'</span>
+              sizes="(max-width: 188px) 100vw, 188px">';
+
+    //check if there is description
+    if(!empty($product_short_description)){
+      $output .='<span class="tooltiptext">'.$product_short_description.'</span>';
+    }
+    
+    $output .= '    
             </div>
           </div>
           <div class="addoncustom-details">

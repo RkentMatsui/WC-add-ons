@@ -24,6 +24,7 @@ function enqueue_add_on_scripts(){
         }
         wp_localize_script( 'cart-addon', 'cartajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ),
         'nonce' => wp_create_nonce('ajax-nonce') ) );
+        wp_enqueue_style( 'wc_add_ons', plugin_dir_url(__FILE__). 'assets/css/main.css' );
     }
     
 }

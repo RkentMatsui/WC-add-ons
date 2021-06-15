@@ -1,0 +1,81 @@
+
+
+/* Custom Product Table */
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 320px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 10%;
+	position: absolute;
+	z-index: 1;
+	margin-left: 10px;
+	font-size: 12px;
+  line-height: 1.40em;
+  font-family: 'Open Sans' !important;
+}
+
+li.woocommerce-cart-form__cart-item {
+    display: flex;
+    background-color: #fafafa;
+    padding: 3%;
+        padding-bottom: 3%;
+}
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
+
+div.product-thumbnail {
+    width: 20%;
+}
+ul#add-on-custom {
+    width: 100%;
+	padding: 0px !important;
+}
+
+.product-name, .product-price {
+    line-height: normal !important;
+}
+
+div.addoncustom-details {
+    width: 50%;
+}
+
+div.product-add-to-cart {
+    width: 30%;
+	display:flex;
+  	align-items:center;
+}
+
+div.addoncustom-details .product-name b {
+    font-weight: 400;
+}
+
+div.addoncustom-details {
+	width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;	
+}
+
+
+/** no bullets on item list. */
+ul.woocommerce-cart-form__contents {
+    list-style: none;
+    padding-left: 0;
+}
+@media screen and (max-width: 380px) {
+  /** Cart Add On Widget **/
+  div.addoncustom-details {
+    width: 82% !important;
+    padding-left: 10px !important;
+    padding-right: 10px;
+    }
+}
