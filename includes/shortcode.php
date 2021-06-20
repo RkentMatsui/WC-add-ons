@@ -2,8 +2,12 @@
 /**
  * Shortcode for the cart addons table
  */
-function custom_add_ons(){
-	
+function custom_add_ons($atts, $content = null ){
+
+  $atts = shortcode_atts( array(
+		'related' 	=> ''
+	), $atts, 'cart_add_on' );
+
 	$home_url = get_home_url();
 	ob_start();
 	$output =  '<ul class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0" id="add-on-custom">';
@@ -14,25 +18,39 @@ function custom_add_ons(){
 	$current_user = wp_get_current_user();
 	$user_id = $current_user->ID;
   $productscount = 0;
+
 	foreach($products as $product){//loop through all products
+
     $prodid= $product->get_id();
     $product_short_description = get_post($prodid)->post_excerpt;//get product short description
     $show_prod = $product->get_attribute( 'show_related' );//get RCP membership ID
     $price = $product->get_price();
-      if(WC()->cart!=null){
-        $product_cart_id = WC()->cart->generate_cart_id( $prodid );
-        $in_cart = WC()->cart->find_product_in_cart( $product_cart_id );
-        if($in_cart){//check if product is already in cart //dont show if already on cart
-          continue;
-        } 
-      }
+
+    if(WC()->cart!=null){
+
+      $product_cart_id = WC()->cart->generate_cart_id( $prodid );
+      $in_cart = WC()->cart->find_product_in_cart( $product_cart_id );
+
+      if($in_cart){//check if product is already in cart //dont show if already on cart
+        continue;
+      } 
+
+    }
+
     if(empty($show_prod) || strtolower($show_prod) != 'yes'){
+
       continue;
+
     }
+
     $image = wp_get_attachment_image_src( get_post_thumbnail_id( $prodid ), 'single-post-thumbnail' );
+
     if(is_bool($image)){
+
       $image[0] = '';
+
     }
+
     //loop through if product is not on cart and not bought
     $output .= '
 		<li class="woocommerce-cart-form__cart-item cart_item">
@@ -51,7 +69,9 @@ function custom_add_ons(){
 
     //check if there is description
     if(!empty($product_short_description)){
+
       $output .='<span class="tooltiptext">'.$product_short_description.'</span>';
+
     }
     
     $output .= '    
@@ -74,8 +94,8 @@ function custom_add_ons(){
   }
  
 	$output .='</ul>';
-  if($productscount==0){
-    $output = '<h3 id="purchased_all" style="text-align: center;">You already have access to all additional products</h3>';
+  if($productscount==0){//no product so return nothing
+    return null;
   }
   echo $output;
 	return ob_get_clean();
